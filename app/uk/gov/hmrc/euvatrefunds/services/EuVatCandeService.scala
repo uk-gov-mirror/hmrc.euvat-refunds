@@ -158,4 +158,14 @@ class EuVatCandeService @Inject() (
     }
   }
 
+  def getReferenceInformationCount(
+    request: ReferenceInfoCountRequest
+  )(implicit hc: HeaderCarrier): Future[ReferenceInfoCountResponse] = {
+    if (candeStubbed) {
+      euVatStubsConnector.getReferenceInformationCount(request)
+    } else {
+      rdsCandeProxyConnector.getReferenceInformationCount(request)
+    }
+  }
+
 }
